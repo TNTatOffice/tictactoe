@@ -1,5 +1,5 @@
 import { useState } from "react";
-export default function Player({ initialName, symbol }) {
+export default function Player({ initialName, symbol, isActive }) {
   // using a second useState to accept tha changed player name
   const [playerName, setPlayerName] = useState(initialName);
   const [isEditing, setIsEditing] = useState(false);
@@ -16,7 +16,7 @@ export default function Player({ initialName, symbol }) {
   // It accepts the event as an event object
   function handleChange(event) {
     // event.target.value gives us access to what the user entered. Event = the event, target = where it happened, value = what happened
-    setPlayerName(event.target.value)
+    setPlayerName(event.target.value);
   }
   //   Storing the default player name in playerName
   let editablePlayerName = <span className="player-name"> {playerName}</span>;
@@ -30,14 +30,15 @@ export default function Player({ initialName, symbol }) {
     );
   }
   return (
-    <li>
+    // Passing the active player state to the player component from App conditionally
+    <li className={isActive ? "active" : undefined}>
       <span className="player">
         {/* Rendering playerName */}
         {editablePlayerName}
         <span className="player-symbol">{symbol}</span>
       </span>
       {/* Creating a ternary expression to change the button from Edit to Save if clicked */}
-      <button onClick={handleEditClick}>{isEditing ? 'Save' : 'Edit'}</button>
+      <button onClick={handleEditClick}>{isEditing ? "Save" : "Edit"}</button>
     </li>
   );
 }
