@@ -3,7 +3,6 @@
 export default function GameBoard({ onSelectSquare, board }) {
   // Using state to update the game board with the user input. It accepts the initial board as a value.
   // const [gameBoard, setGameBoard] = useState(initialGameBoard);
-
   // // Updating the game board with the previous state of the board, so we don't lose the previous user input
   // // This can be done by passing a function
   // // The function accepts the rowIndex and colIndex to know which null to update
