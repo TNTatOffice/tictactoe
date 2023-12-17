@@ -1,24 +1,6 @@
 // Component for creating a dynamic board with an array that holds three values
-const initialGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
 
-export default function GameBoard({ onSelectSquare, turns }) {
-  // Setting gameBoard to initial game board and then updating it if we have turns.
-  // If there are no turns, the game board stays as it is
-  let gameBoard = initialGameBoard;
-
-  // Using a for loop to run through all turns using "const turn of turns". Turns is an empty array.
-  // We are pulling square and player properties from App and assigning them to turn. Then pulling row and col and assigning them to square.
-  for (const turn of turns) {
-    const { square, player } = turn;
-    const { row, col } = square;
-    // Deriving state to from gameBoard row and col to player.
-    gameBoard[row][col] = player;
-  }
-
+export default function GameBoard({ onSelectSquare, board }) {
   // Using state to update the game board with the user input. It accepts the initial board as a value.
   // const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
@@ -47,14 +29,18 @@ export default function GameBoard({ onSelectSquare, turns }) {
     // Logic for 3x3 game board below
     <ol id="game-board">
       {/* Mapping the new game board after updating state with OnClick. See below */}
-      {gameBoard.map((row, rowIndex) => (
+      {board.map((row, rowIndex) => (
         <li key={rowIndex}>
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
                 {/* Passing an annonymous function to onClick since we want rowIndex and colIndex as arguments */}
                 {/* Using an annonymous function to get the row and col index */}
-                <button onClick={() => onSelectSquare(rowIndex, colIndex)}>
+                <button
+                  onClick={() => onSelectSquare(rowIndex, colIndex)}
+                  // {/* Adding disabled prop to prevent the same button being clicked multiple times */}
+                  disabled={playerSymbol !== null}
+                >
                   {playerSymbol}
                 </button>
               </li>
