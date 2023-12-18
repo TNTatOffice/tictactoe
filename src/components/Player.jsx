@@ -1,5 +1,5 @@
 import { useState } from "react";
-export default function Player({ initialName, symbol, isActive }) {
+export default function Player({ initialName, symbol, isActive, onChangeName }) {
   // using a second useState to accept tha changed player name
   const [playerName, setPlayerName] = useState(initialName);
   const [isEditing, setIsEditing] = useState(false);
@@ -9,6 +9,9 @@ export default function Player({ initialName, symbol, isActive }) {
   // Using only !isEditing only schedules the activity to take place
   function handleEditClick() {
     setIsEditing((editing) => !editing);
+    if (isEditing) {
+      onChangeName(symbol, playerName)
+    }
   }
 
   // Creating a function that will handle the change in player name event
